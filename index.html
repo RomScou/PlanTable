@@ -9,11 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg-translucent: rgba(15, 23, 42, 0.45); /* Transparence pour les cartes */
+            /* Color beige extraído del fondo exacto de Table.png */
+            --bg-color: #e8dfd8;
+            /* Mayor transparencia para las tarjetas */
+            --card-bg-translucent: rgba(15, 23, 42, 0.22); 
             --accent-purple: #8b5cf6;
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
+            --text-dark: #1e293b;
             --text-light: #f8fafc;
         }
 
@@ -21,8 +24,8 @@
 
         body {
             font-family: 'Fredoka', sans-serif;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-            color: var(--text-light);
+            background-color: var(--bg-color); /* Mismo color de fondo que la foto */
+            color: var(--text-dark);
             height: 100vh;
             width: 100vw;
             overflow: hidden;
@@ -34,7 +37,7 @@
             position: relative;
         }
 
-        /* En-tête */
+        /* En-tête adapte au fond clair */
         header {
             position: relative;
             z-index: 10;
@@ -42,11 +45,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
             padding: 0.6rem 1.8rem;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .title-group h1 {
@@ -67,8 +72,8 @@
         }
 
         .admin-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #fff;
             padding: 0.4rem 1rem;
             border-radius: 50px;
@@ -77,9 +82,9 @@
             transition: background 0.2s;
         }
 
-        .admin-btn:hover { background: rgba(255, 255, 255, 0.25); }
+        .admin-btn:hover { background: rgba(255, 255, 255, 0.3); }
 
-        /* Conteneur principal qui remplit l'espace */
+        /* Conteneur principal */
         main { 
             width: 100%; 
             flex: 1; 
@@ -94,66 +99,65 @@
             position: relative; 
             width: 100%; 
             height: 100%; 
-            max-width: 1150px; 
+            max-width: 1100px; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
         }
         
-        /* Arrière-plan : La photo de la vraie table remplissant l'espace */
+        /* Arrière-plan de la table */
         .table-image-bg {
             position: absolute;
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
             z-index: 1;
         }
 
-        /* Message central au milieu de la nappe */
+        /* Inscription centrale */
         .table-centerpiece { 
             position: absolute;
             z-index: 2;
             font-size: 2.3rem; 
             color: #ffffff; 
-            text-shadow: 0 4px 10px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.6);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.8);
             text-align: center; 
             font-weight: 700; 
-            background: rgba(15, 23, 42, 0.55);
+            background: rgba(15, 23, 42, 0.65);
             padding: 0.4rem 1.8rem;
             border-radius: 30px;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.25);
         }
 
-        /* Sièges dynamiques alignés sur la photo */
+        /* Cartes des 6 places ajustees */
         .seat {
             position: absolute;
             z-index: 5;
-            width: 135px;
+            width: 130px;
             transition: all 0.5s ease;
         }
 
-        /* Positions ajustées pour superposer chaque carte directement sur sa chaise/fauteuil */
-        .seat-pos-1 { left: 8%; top: 48%; transform: translateY(-50%); }         /* Chaise Bois Gauche */
-        .seat-pos-2 { top: 3%; left: 23%; }                                       /* Fauteuil Bleu Haut-G */
-        .seat-pos-3 { top: 3%; right: 40%; }                                      /* Chaise Bois Haut-D */
-        .seat-pos-4 { right: 8%; top: 48%; transform: translateY(-50%); }        /* Fauteuil Bleu Droit */
-        .seat-pos-5 { bottom: 3%; right: 30%; }                                   /* Chaise Bois Bas-D */
-        .seat-pos-6 { bottom: 3%; left: 30%; }                                    /* Chaise Bois Bas-G */
+        /* REPOSITIONNEMENT VERS L'INTÉRIEUR SUR LES VRAIES CHAISES */
+        .seat-pos-1 { left: 17%; top: 48%; transform: translateY(-50%); }         /* Mauro (Chaise Gauche) */
+        .seat-pos-2 { top: 3%; left: 30%; }                                       /* Victor (Fauteuil Haut-G) */
+        .seat-pos-3 { top: 3%; right: 42%; }                                      /* Jaime (Chaise Haut-D) */
+        .seat-pos-4 { right: 17%; top: 48%; transform: translateY(-50%); }        /* Emma (Fauteuil Droit) */
+        .seat-pos-5 { bottom: 3%; right: 30%; }                                   /* Violeta (Chaise Bas-D) */
+        .seat-pos-6 { bottom: 3%; left: 30%; }                                    /* Chloé (Chaise Bas-G) */
 
-        /* Carte de l'enfant semi-transparente */
+        /* Carte translucide */
         .seat-card {
             background: var(--card-bg-translucent);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px);
             border-radius: 16px;
-            padding: 0.4rem 0.5rem 0.6rem 0.5rem;
+            padding: 0.4rem 0.5rem 0.5rem 0.5rem;
             width: 100%;
             display: flex; 
             flex-direction: column; 
             align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
         }
 
         .seat-label {
@@ -165,12 +169,12 @@
             font-weight: bold; 
             text-align: center;
             line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         .avatar-circle {
-            width: 58px; 
-            height: 58px; 
+            width: 56px; 
+            height: 56px; 
             border-radius: 50%;
             background: #334155; 
             display: flex; 
@@ -178,8 +182,8 @@
             align-items: center;
             font-size: 2rem; 
             margin-bottom: 0.2rem;
-            border: 2px solid rgba(255,255,255,0.8);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             overflow: hidden;
         }
 
@@ -194,14 +198,15 @@
             font-weight: 700; 
             text-align: center; 
             color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
         }
 
-        /* MODAL ADMIN (ESPAÑOL) */
+        /* MODAL ADMIN */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
             z-index: 100; display: none; justify-content: center; align-items: center;
+            color: var(--text-light);
         }
 
         .modal-card {
@@ -235,12 +240,18 @@
             border-radius: 8px; font-weight: bold; cursor: pointer;
         }
 
-        footer { font-size: 0.95rem; color: #94a3b8; width: 100%; text-align: center; }
+        footer { 
+            font-size: 0.95rem; 
+            color: #334155; 
+            font-weight: 600;
+            width: 100%; 
+            text-align: center; 
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header en español -->
+    <!-- Header -->
     <header>
         <div class="title-group">
             <h1>🍽️ ¿Dónde me siento?</h1>
@@ -258,12 +269,12 @@
             <!-- Vraie photo de la table -->
             <img src="Table.png" alt="Table" class="table-image-bg">
             
-            <!-- Inscription centrale gardée en français -->
+            <!-- Inscription centrale -->
             <div class="table-centerpiece">¡Bon appétit! 🥗</div>
 
             <!-- Conteneur des sièges superposés -->
             <div id="seatsContainer">
-                <!-- Les 6 places positionnées sur les chaises -->
+                <!-- Les 6 places -->
             </div>
         </div>
     </main>
@@ -272,7 +283,7 @@
         Próximo cambio: Cena a las 15h00
     </footer>
 
-    <!-- MODAL ADMIN (ESPAÑOL) -->
+    <!-- MODAL ADMIN -->
     <div class="modal-overlay" id="adminModal">
         <div class="modal-card">
             <div class="modal-header">
@@ -304,7 +315,6 @@
     </div>
 
     <script>
-        /* CONFIGURATION DES NOMS DES SIÈGES EN ESPAGNOL */
         const PLACES_CONFIG = [
             { id: 1, label: "Silla Izquierda", posClass: "seat-pos-1" },
             { id: 2, label: "Sillón Arriba-Izq", posClass: "seat-pos-2" },
@@ -314,7 +324,6 @@
             { id: 6, label: "Silla Abajo-Izq", posClass: "seat-pos-6" }
         ];
 
-        /* LISTE DES ENFANTS */
         const DEFAULT_KIDS = [
             { id: '1', name: 'Emma', avatar: '👧', photo: 'emma.png', active: true },
             { id: '2', name: 'Violeta', avatar: '👧', photo: 'Vivi.png', active: true },
@@ -404,7 +413,6 @@
             });
         }
 
-        /* FONCTIONS ADMIN (ESPAÑOL) */
         function openAdmin() {
             renderAdminKids();
             document.getElementById('adminModal').style.display = 'flex';
