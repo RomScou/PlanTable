@@ -10,7 +10,7 @@
     <style>
         :root {
             /* Color beige extraído del fondo exacto de Table.png */
-            --bg-color: #e8dfd8;
+            --bg-color: #d7cbbf;
             /* Mayor transparencia para las tarjetas */
             --card-bg-translucent: rgba(15, 23, 42, 0.22); 
             --accent-purple: #8b5cf6;
@@ -280,7 +280,7 @@
     </main>
 
     <footer id="nextRotationInfo">
-        Próximo cambio: Cena a las 15h00
+        Próximo cambio: Cena a las 19h00
     </footer>
 
     <!-- MODAL ADMIN -->
@@ -348,7 +348,7 @@
         function calculateSeating() {
             const now = new Date();
             const hour = now.getHours();
-            const isDinner = hour < 15; // < 15h = Comida, >= 15h = Cena
+            const isDinner = hour < 19; // < 19h = Comida, >= 19h = Cena
             
             const diffTime = now.getTime() - ANCHOR_DATE.getTime();
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -382,7 +382,7 @@
             document.getElementById('mealBadge').textContent = seating.isDinner ? "☀️ Comida" : "🌙 Cena";
 
             const nextInfo = seating.isDinner 
-                ? "Próximo cambio: Cena a partir de las 15h00" 
+                ? "Próximo cambio: Cena a partir de las 19h00" 
                 : "Próximo cambio: Comida mañana a mediodía";
             document.getElementById('nextRotationInfo').textContent = nextInfo;
 
