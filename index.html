@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-bg-translucent: rgba(15, 23, 42, 0.45); /* Transparence pour les cartes */
             --accent-purple: #8b5cf6;
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
@@ -30,7 +30,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.5rem;
             position: relative;
         }
 
@@ -42,9 +42,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(12px);
-            padding: 0.8rem 2rem;
+            padding: 0.6rem 1.8rem;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -79,25 +79,32 @@
 
         .admin-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
-        /* Conteneur principal de la pièce */
-        main { width: 100%; flex: 1; display: flex; justify-content: center; align-items: center; }
+        /* Conteneur principal qui remplit l'espace */
+        main { 
+            width: 100%; 
+            flex: 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: relative;
+            margin: 0.5rem 0;
+        }
         
         .dining-room { 
             position: relative; 
             width: 100%; 
             height: 100%; 
-            max-width: 1100px; 
-            max-height: 560px; 
+            max-width: 1150px; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
         }
         
-        /* Arrière-plan : La photo de la vraie table */
+        /* Arrière-plan : La photo de la vraie table remplissant l'espace */
         .table-image-bg {
             position: absolute;
-            width: 82%;
-            height: 85%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
             z-index: 1;
@@ -107,61 +114,63 @@
         .table-centerpiece { 
             position: absolute;
             z-index: 2;
-            font-size: 2.5rem; 
+            font-size: 2.3rem; 
             color: #ffffff; 
-            text-shadow: 0 4px 10px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.6);
             text-align: center; 
             font-weight: 700; 
-            background: rgba(15, 23, 42, 0.4);
-            padding: 0.4rem 1.5rem;
+            background: rgba(15, 23, 42, 0.55);
+            padding: 0.4rem 1.8rem;
             border-radius: 30px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.25);
         }
 
         /* Sièges dynamiques alignés sur la photo */
         .seat {
             position: absolute;
             z-index: 5;
-            width: 145px;
+            width: 135px;
             transition: all 0.5s ease;
         }
 
-        /* Coordonnées relatives adaptées aux emplacements des chaises/fauteuils de Table.png */
-        .seat-pos-1 { left: 0%; top: 50%; transform: translateY(-50%); }         /* Chaise Bois Gauche */
-        .seat-pos-2 { top: 0%; left: 21%; }                                       /* Fauteuil Bleu Haut-Gauche */
-        .seat-pos-3 { top: 0%; right: 38%; }                                      /* Chaise Bois Haut-Droit */
-        .seat-pos-4 { right: 0%; top: 50%; transform: translateY(-50%); }        /* Fauteuil Bleu Droit */
-        .seat-pos-5 { bottom: 0%; right: 21%; }                                   /* Chaise Bois Bas-Droit */
-        .seat-pos-6 { bottom: 0%; left: 24%; }                                    /* Chaise Bois Bas-Gauche */
+        /* Positions ajustées pour superposer chaque carte directement sur sa chaise/fauteuil */
+        .seat-pos-1 { left: 8%; top: 48%; transform: translateY(-50%); }         /* Chaise Bois Gauche */
+        .seat-pos-2 { top: 3%; left: 23%; }                                       /* Fauteuil Bleu Haut-G */
+        .seat-pos-3 { top: 3%; right: 40%; }                                      /* Chaise Bois Haut-D */
+        .seat-pos-4 { right: 8%; top: 48%; transform: translateY(-50%); }        /* Fauteuil Bleu Droit */
+        .seat-pos-5 { bottom: 3%; right: 30%; }                                   /* Chaise Bois Bas-D */
+        .seat-pos-6 { bottom: 3%; left: 30%; }                                    /* Chaise Bois Bas-G */
 
+        /* Carte de l'enfant semi-transparente */
         .seat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            background: var(--card-bg-translucent);
+            backdrop-filter: blur(8px);
             border-radius: 16px;
-            padding: 0.5rem;
+            padding: 0.4rem 0.5rem 0.6rem 0.5rem;
             width: 100%;
             display: flex; 
             flex-direction: column; 
             align-items: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
         .seat-label {
-            font-size: 0.7rem; 
+            font-size: 0.65rem; 
             color: #f59e0b; 
             text-transform: uppercase;
             letter-spacing: 0.5px; 
-            margin-bottom: 4px; 
+            margin-bottom: 3px; 
             font-weight: bold; 
             text-align: center;
             line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .avatar-circle {
-            width: 55px; 
-            height: 55px; 
+            width: 58px; 
+            height: 58px; 
             border-radius: 50%;
             background: #334155; 
             display: flex; 
@@ -169,7 +178,8 @@
             align-items: center;
             font-size: 2rem; 
             margin-bottom: 0.2rem;
-            border: 3px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             overflow: hidden;
         }
 
@@ -179,9 +189,15 @@
             object-fit: cover;
         }
 
-        .kid-name { font-size: 1.05rem; font-weight: 700; text-align: center; }
+        .kid-name { 
+            font-size: 1.05rem; 
+            font-weight: 700; 
+            text-align: center; 
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+        }
 
-        /* MODAL ADMIN */
+        /* MODAL ADMIN (ESPAÑOL) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
@@ -219,20 +235,20 @@
             border-radius: 8px; font-weight: bold; cursor: pointer;
         }
 
-        footer { font-size: 0.9rem; color: #94a3b8; width: 100%; text-align: center; }
+        footer { font-size: 0.95rem; color: #94a3b8; width: 100%; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header en español -->
     <header>
         <div class="title-group">
-            <h1>🍽️ Qui s'assied où ?</h1>
+            <h1>🍽️ ¿Dónde me siento?</h1>
         </div>
         <div class="header-controls">
-            <div class="meal-badge" id="mealBadge">☀️ Dîner</div>
-            <div class="time-display" id="timeDisplay" style="font-size:1.4rem;">12:00</div>
-            <button class="admin-btn" onclick="openAdmin()">⚙️ Gérer</button>
+            <div class="meal-badge" id="mealBadge">☀️ Comida</div>
+            <div class="time-display" id="timeDisplay" style="font-size:1.4rem;">14:00</div>
+            <button class="admin-btn" onclick="openAdmin()">⚙️ Gestión</button>
         </div>
     </header>
 
@@ -242,63 +258,63 @@
             <!-- Vraie photo de la table -->
             <img src="Table.png" alt="Table" class="table-image-bg">
             
-            <!-- Inscription centrale -->
+            <!-- Inscription centrale gardée en français -->
             <div class="table-centerpiece">¡Bon appétit! 🥗</div>
 
-            <!-- Conteneur des sièges -->
+            <!-- Conteneur des sièges superposés -->
             <div id="seatsContainer">
-                <!-- Les 6 places positionnées sur les vraies chaises -->
+                <!-- Les 6 places positionnées sur les chaises -->
             </div>
         </div>
     </main>
 
-    <footer>
-        <span id="nextRotationInfo">Prochaine permutation : Souper à 15h00</span>
+    <footer id="nextRotationInfo">
+        Próximo cambio: Cena a las 15h00
     </footer>
 
-    <!-- MODAL ADMIN -->
+    <!-- MODAL ADMIN (ESPAÑOL) -->
     <div class="modal-overlay" id="adminModal">
         <div class="modal-card">
             <div class="modal-header">
-                <h2>⚙️ Panneau de Gestion</h2>
+                <h2>⚙️ Panel de Gestión</h2>
                 <button class="close-btn" onclick="closeAdmin()">&times;</button>
             </div>
 
             <div class="admin-section">
-                <h3>Enfants présents à table</h3>
+                <h3>Niños presentes en la mesa</h3>
                 <div id="kidsAdminList"></div>
             </div>
 
             <div class="admin-section">
-                <h3>Ajouter un invité ou enfant</h3>
+                <h3>Añadir invitado o niño</h3>
                 <div class="add-form">
                     <div class="add-form-row">
-                        <input type="text" id="newKidName" placeholder="Prénom...">
-                        <input type="text" id="newKidEmoji" placeholder="Emoji (ex: 👦)" style="width: 90px;">
+                        <input type="text" id="newKidName" placeholder="Nombre...">
+                        <input type="text" id="newKidEmoji" placeholder="Emoji (ej: 👦)" style="width: 90px;">
                     </div>
-                    <input type="text" id="newKidPhoto" placeholder="Nom de fichier photo (ex: image.png)">
-                    <button class="btn-action" onclick="addKid()">Ajouter à la table</button>
+                    <input type="text" id="newKidPhoto" placeholder="Nombre del archivo (ej: foto.png)">
+                    <button class="btn-action" onclick="addKid()">Añadir a la mesa</button>
                 </div>
             </div>
 
             <div style="margin-top:2rem; text-align:right;">
-                <button class="btn-action" style="background:#10b981;" onclick="closeAdmin()">Enregistrer et fermer</button>
+                <button class="btn-action" style="background:#10b981;" onclick="closeAdmin()">Guardar y cerrar</button>
             </div>
         </div>
     </div>
 
     <script>
-        /* CONFIGURATION DES 6 EMPLACEMENTS SUR LA PHOTO */
+        /* CONFIGURATION DES NOMS DES SIÈGES EN ESPAGNOL */
         const PLACES_CONFIG = [
-            { id: 1, label: "Chaise Gauche", posClass: "seat-pos-1" },
-            { id: 2, label: "Fauteuil Haut-G", posClass: "seat-pos-2" },
-            { id: 3, label: "Chaise Haut-D", posClass: "seat-pos-3" },
-            { id: 4, label: "Fauteuil Droit", posClass: "seat-pos-4" },
-            { id: 5, label: "Chaise Bas-D", posClass: "seat-pos-5" },
-            { id: 6, label: "Chaise Bas-G", posClass: "seat-pos-6" }
+            { id: 1, label: "Silla Izquierda", posClass: "seat-pos-1" },
+            { id: 2, label: "Sillón Arriba-Izq", posClass: "seat-pos-2" },
+            { id: 3, label: "Silla Arriba-Der", posClass: "seat-pos-3" },
+            { id: 4, label: "Sillón Derecho", posClass: "seat-pos-4" },
+            { id: 5, label: "Silla Abajo-Der", posClass: "seat-pos-5" },
+            { id: 6, label: "Silla Abajo-Izq", posClass: "seat-pos-6" }
         ];
 
-        /* LISTE DES ENFANTS PAR DÉFAUT AVEC LEURS PHOTOS */
+        /* LISTE DES ENFANTS */
         const DEFAULT_KIDS = [
             { id: '1', name: 'Emma', avatar: '👧', photo: 'emma.png', active: true },
             { id: '2', name: 'Violeta', avatar: '👧', photo: 'Vivi.png', active: true },
@@ -323,7 +339,7 @@
         function calculateSeating() {
             const now = new Date();
             const hour = now.getHours();
-            const isDinner = hour < 15; // < 15h = Dîner, >= 15h = Souper
+            const isDinner = hour < 15; // < 15h = Comida, >= 15h = Cena
             
             const diffTime = now.getTime() - ANCHOR_DATE.getTime();
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -354,13 +370,18 @@
                 `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
             const seating = calculateSeating();
-            document.getElementById('mealBadge').textContent = seating.isDinner ? "☀️ Dîner" : "🌙 Souper";
+            document.getElementById('mealBadge').textContent = seating.isDinner ? "☀️ Comida" : "🌙 Cena";
+
+            const nextInfo = seating.isDinner 
+                ? "Próximo cambio: Cena a partir de las 15h00" 
+                : "Próximo cambio: Comida mañana a mediodía";
+            document.getElementById('nextRotationInfo').textContent = nextInfo;
 
             const container = document.getElementById('seatsContainer');
             container.innerHTML = '';
 
             if (seating.assignments.length === 0) {
-                container.innerHTML = '<div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:1.5rem; color:#94a3b8; background:rgba(0,0,0,0.7); padding:1rem; border-radius:12px;">Aucun enfant sélectionné à table.</div>';
+                container.innerHTML = '<div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:1.5rem; color:#94a3b8; background:rgba(0,0,0,0.8); padding:1rem 2rem; border-radius:12px;">No hay niños seleccionados en la mesa.</div>';
                 return;
             }
 
@@ -383,7 +404,7 @@
             });
         }
 
-        /* FONCTIONS ADMIN */
+        /* FONCTIONS ADMIN (ESPAÑOL) */
         function openAdmin() {
             renderAdminKids();
             document.getElementById('adminModal').style.display = 'flex';
