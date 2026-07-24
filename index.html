@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan de Mesa Dinámico</title>
+    
+    <!-- Eviter le cache sur le Chromecast -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>Plan de Table Dynamique</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Color beige extraído del fondo exacto de Table.png */
-            --bg-color: #e8dfd8;
-            /* Mayor transparencia para las tarjetas */
+            --bg-color: #ffffff;
             --card-bg-translucent: rgba(15, 23, 42, 0.22); 
             --accent-purple: #8b5cf6;
             --accent-blue: #3b82f6;
@@ -24,7 +28,7 @@
 
         body {
             font-family: 'Fredoka', sans-serif;
-            background-color: var(--bg-color); /* Mismo color de fondo que la foto */
+            background-color: var(--bg-color);
             color: var(--text-dark);
             height: 100vh;
             width: 100vw;
@@ -37,7 +41,7 @@
             position: relative;
         }
 
-        /* En-tête adapte au fond clair */
+        /* En-tête */
         header {
             position: relative;
             z-index: 10;
@@ -114,10 +118,36 @@
             z-index: 1;
         }
 
+        /* STYLES DES ANIMATIONS MASCOTTES AGRANDIES DE +50% (165px) */
+        .mascot-video {
+            position: absolute;
+            z-index: 2;
+            width: 165px;  /* 110px + 50% */
+            height: 165px; /* 110px + 50% */
+            object-fit: cover;
+            filter: none;
+            pointer-events: none;
+            background: transparent;
+        }
+
+        /* Mascotte Brocoli à gauche */
+        .mascot-left {
+            left: -2%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Mascotte Carotte à droite */
+        .mascot-right {
+            right: -2%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
         /* Inscription centrale */
         .table-centerpiece { 
             position: absolute;
-            z-index: 2;
+            z-index: 3;
             font-size: 2.3rem; 
             color: #ffffff; 
             text-shadow: 0 4px 10px rgba(0,0,0,0.8);
@@ -130,7 +160,7 @@
             border: 1px solid rgba(255,255,255,0.25);
         }
 
-        /* Cartes des 6 places ajustees */
+        /* Cartes des 6 places */
         .seat {
             position: absolute;
             z-index: 5;
@@ -138,13 +168,12 @@
             transition: all 0.5s ease;
         }
 
-        /* REPOSITIONNEMENT VERS L'INTÉRIEUR SUR LES VRAIES CHAISES */
-        .seat-pos-1 { left: 17%; top: 48%; transform: translateY(-50%); }         /* Mauro (Chaise Gauche) */
-        .seat-pos-2 { top: 3%; left: 30%; }                                       /* Victor (Fauteuil Haut-G) */
-        .seat-pos-3 { top: 3%; right: 42%; }                                      /* Jaime (Chaise Haut-D) */
-        .seat-pos-4 { right: 17%; top: 48%; transform: translateY(-50%); }        /* Emma (Fauteuil Droit) */
-        .seat-pos-5 { bottom: 3%; right: 30%; }                                   /* Violeta (Chaise Bas-D) */
-        .seat-pos-6 { bottom: 3%; left: 30%; }                                    /* Chloé (Chaise Bas-G) */
+        .seat-pos-1 { left: 17%; top: 48%; transform: translateY(-50%); }         /* Mauro */
+        .seat-pos-2 { top: 3%; left: 30%; }                                       /* Victor */
+        .seat-pos-3 { top: 3%; right: 42%; }                                      /* Jaime */
+        .seat-pos-4 { right: 17%; top: 48%; transform: translateY(-50%); }        /* Emma */
+        .seat-pos-5 { bottom: 3%; right: 30%; }                                   /* Violeta */
+        .seat-pos-6 { bottom: 3%; left: 30%; }                                    /* Chloé */
 
         /* Carte translucide */
         .seat-card {
@@ -269,6 +298,16 @@
             <!-- Vraie photo de la table -->
             <img src="Table.png" alt="Table" class="table-image-bg">
             
+            <!-- Vidéo Brocoli à gauche -->
+            <video class="mascot-video mascot-left" autoplay loop muted playsinline>
+                <source src="BrocoliKid.mp4" type="video/mp4">
+            </video>
+
+            <!-- Vidéo Carotte à droite -->
+            <video class="mascot-video mascot-right" autoplay loop muted playsinline>
+                <source src="CarrotKid.mp4" type="video/mp4">
+            </video>
+
             <!-- Inscription centrale -->
             <div class="table-centerpiece">¡Bon appétit! 🥗</div>
 
@@ -348,7 +387,7 @@
         function calculateSeating() {
             const now = new Date();
             const hour = now.getHours();
-            const isDinner = hour < 19; // < 15h = Comida, >= 15h = Cena
+            const isDinner = hour < 19; // < 19h = Comida, >= 19h = Cena
             
             const diffTime = now.getTime() - ANCHOR_DATE.getTime();
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
